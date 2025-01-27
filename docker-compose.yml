@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  backstage:
+    env_file:
+      - .env
+    build: .
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      BACKEND_SECRET: ${BACKEND_SECRET}
+    ports:
+      - 7007:7007
+      - 7008:7008
+    volumes:
+      - ./backstage:/app
+      - ./app-config.yaml:/app/app-config.yaml:ro
+      - ./catalog-info.yaml:/app/catalog-info.yaml:ro
+      - ./lerna.json:/app/lerna.json:ro
+
+  postgres:
+    image: postgres:12
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} 
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - backstage_pgdata:/var/lib/postgresql/data
+
+volumes:
+  backstage_pgdata:
