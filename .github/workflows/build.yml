@@ -22,7 +22,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:latest -f ./backstage-testing/prod.Dockerfile .
+          docker build -t ghcr.io/${{ github.repository }}:latest -f ./prod.Dockerfile .
 
       - name: Push the Docker image to GitHub Container Registry
         run: |
