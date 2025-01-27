@@ -3,7 +3,7 @@ name: Backstage CI/CD Pipeline
 on:
   push:
     branches:
-      - production
+      - main
   pull_request:
   workflow_dispatch:
 
